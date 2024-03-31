@@ -235,7 +235,7 @@ ET_PenmanMonteith_daily = function(x, elev, lat, wind=NULL){
 
 deg2rad = function (d) 
 {
-    d * 3.14 / 180
+    d * pi / 180
 }
 
 #' Oudin Daily PET
