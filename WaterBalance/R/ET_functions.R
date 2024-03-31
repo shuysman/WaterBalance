@@ -251,7 +251,7 @@ deg2rad = function (d)
 #' @export
 #' get_OudinPET()
 
-get_OudinPET = function(doy, lat, pack, tmean, slope, aspect, shade.coeff=1){
+get_OudinPET = function(doy, lat, pack, tmean, slope, aspect, shade.coeff=1) {
   d.r = 1 + 0.033*cos((2*pi/365)*doy)
   declin = 0.409*sin((((2*pi)/365)*doy)-1.39)
   lat.rad = deg2rad(lat)
