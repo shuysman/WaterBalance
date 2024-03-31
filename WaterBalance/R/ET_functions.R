@@ -226,6 +226,18 @@ ET_PenmanMonteith_daily = function(x, elev, lat, wind=NULL){
   return(ET.o)
 }
 
+#' Degrees to Radians
+#'
+#' Converts degrees to Radians
+#' @param d Degrees to convert (degrees)
+#' @export
+#' @deg2rad()
+
+deg2rad = function (d) 
+{
+    d * 3.14 / 180
+}
+
 #' Oudin Daily PET
 #'
 #' Calculates PET (mm) based on temperature, latitude, and solar radiation 
