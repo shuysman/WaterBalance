@@ -235,7 +235,7 @@ ET_PenmanMonteith_daily = function(x, elev, lat, wind=NULL){
 
 deg2rad = function (d) 
 {
-    d * pi / 180
+    d * 3.14159 / 180
 }
 
 #' Oudin Daily PET
@@ -252,11 +252,11 @@ deg2rad = function (d)
 #' get_OudinPET()
 
 get_OudinPET = function(doy, lat, pack, tmean, slope, aspect, shade.coeff=1) {
-  d.r = 1 + 0.033*cos((2*pi/365)*doy)
-  declin = 0.409*sin((((2*pi)/365)*doy)-1.39)
+  d.r = 1 + 0.033*cos((2*3.14159/365)*doy)
+  declin = 0.409*sin((((2*3.14)/365)*doy)-1.39)
   lat.rad = deg2rad(lat)
   sunset.ang = acos(-tan(lat.rad)*tan(declin))
-  R.a = ((24*60)/pi)*0.082*d.r*((sunset.ang*sin(lat.rad)*sin(declin)) + (cos(lat.rad)*cos(declin)*sin(sunset.ang)))
+  R.a = ((24*60)/3.14159)*0.082*d.r*((sunset.ang*sin(lat.rad)*sin(declin)) + (cos(lat.rad)*cos(declin)*sin(sunset.ang)))
   Oudin = ifelse(pack>2,0,ifelse(tmean>-5,(R.a*(tmean+5)*0.408)/100,0))
   Folded_aspect = abs(180-abs((aspect)-225))
   Heatload = (0.339+0.808*cos(deg2rad(lat))*cos(deg2rad(slope)))-(0.196*sin(deg2rad(lat))*sin(deg2rad(slope)))-(0.482*cos(deg2rad(Folded_aspect))*sin(deg2rad(slope)))
