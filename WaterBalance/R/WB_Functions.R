@@ -31,18 +31,15 @@ get_jtemp = function(Lat, Lon){
 #' @export
 #' get_freeze()
 
-get_freeze = function(jtemp, tmean){
-  freeze <- vector()
-  freeze[1] = ifelse(tmean[1]<= (jtemp[1]-3),0,
-                     ifelse(tmean[1]>=(jtemp[1]+3),1,
-                            (1/((jtemp[1]+3) - (jtemp[1]-3)))*(tmean[1]-(jtemp[1]-3))))
-  for(i in 2:length(tmean)){
-    freeze[i] = ifelse(
-      tmean[i] <= (jtemp[i]-3), 0, 
-      ifelse(tmean[i] >= (jtemp[i]+3),
-             1, (0.167*(tmean[i]-(jtemp[i]-3)))))
-  }
-  return(freeze)
+get_freeze = function(jtemp, tmean) {
+    low_temp_threshold <- jtemp - 3
+    high_temp_threshold <- jtemp + 3
+    freeze <- dplyr::case_when(
+        tmean <= low_temp_threshold ~ 0,
+        tmean >= high_temp_threshold ~ 1,
+        TRUE ~ (1 / (high_temp_threshold - low_temp_threshold)) * (tmean - low_temp_threshold)
+    )
+    return(freeze)
 }
 
 #' Rain
