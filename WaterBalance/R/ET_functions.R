@@ -279,7 +279,7 @@ get_heatload <- function(slope, aspect, latitude) {
 #'
 #' Calculates PET (mm) based on temperature, latitude, and solar radiation 
 #' @param doy Day-of-year (Julian date)
-#' @param lat Latitude of the site (degrees).
+#' @param lat Latitude of the site (degrees) from 30-60 degrees.
 #' @param snowpack A time series vector of snowpack accumulation values.
 #' @param tmean A vector of daily mean temperatures (deg C).
 #' @param slope Slope of the site (in degrees).
