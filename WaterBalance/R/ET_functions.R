@@ -18,6 +18,16 @@ deg2rad <- function(degrees) {
   degrees * (pi / 180)
 }
 
+#' Folded aspect
+#'
+#' "Folds" aspect over N-S line, so aspects are limited to 0-180
+#' degrees
+#' @param aspect Aspect in degrees (0-360)
+
+fold_aspect <- function(aspect) {
+  abs(180 - abs(aspect - 225))
+}
+
 #' Daylength
 #'
 #' Returns daylength in hours for a series of dates, based on latitude. Calls the 'geosphere' package.
