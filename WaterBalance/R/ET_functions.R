@@ -7,6 +7,17 @@
 ## Future updates - adding more ET calculation methods
 ###################################################################################
 
+#' Degrees to Radians
+#'
+#' Convert degrees to radians
+#' @param degrees
+#' @export
+#' deg2rad()
+
+deg2rad <- function(degrees) {
+  degrees * (pi / 180)
+}
+
 #' Daylength
 #'
 #' Returns daylength in hours for a series of dates, based on latitude. Calls the 'geosphere' package.
