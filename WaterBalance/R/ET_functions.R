@@ -231,21 +231,49 @@ ET_PenmanMonteith_daily = function(x, elev, lat, wind=NULL){
     e.a = vp
   }
 
-  #Solar angle and radiation calculations
-  R.ns = (1 - 0.23)*R.s
+  # Solar angle and radiation calculations
+  R.ns = (1 - 0.23) * R.s
   R.so = clear_sky_rad(doy, lat, elev)
   R.nl = outgoing_rad(tmax, tmin, R.s, e.a, R.so)
   R.n = R.ns - R.nl
-  R.ng = 0.408*R.n
+  R.ng = 0.408 * R.n
 
-  #ET from radiation
-  ET.rad = DT*R.ng
-  #ET from wind
-  ET.wind = PT*TT*(e.s - e.a)
-  #Total ET
+  # ET from radiation
+  ET.rad = DT * R.ng
+  # ET from wind
+  ET.wind = PT * TT * (e.s - e.a)
+  # Total ET
   ET.o = ET.rad + ET.wind
   return(ET.o)
 }
+
+#' Heatload
+#'
+#' Estimate potential annual direct incident radiation from slope,
+#' aspect, and latitude.  From McCune, B., and Keon, D., 2002,
+#' Equations for Potential Annual Direct Incident Radiation and Heat
+#' Load: Journal of Vegetation Science, v. 13, p. 603–606.
+#' @param slope Slope in degrees, from 1-60 degrees.
+#' @param aspect Aspect in degrees.
+#' @param latitude Latitude in degrees
+#' @export
+#' get_heatload()
+
+get_heatload <- function(slope, aspect, latitude) {
+  folded_aspect_rad <- deg2rad(fold_aspect(aspect))
+  slope_rad <- deg2rad(slope)
+  lat_rad <- deg2rad(latitude)
+
+
+  heatload <- 0.339 +
+          0.808 * (cos(lat_rad * cos(slope_rad))) +
+          -0.196 * (sin(lat_rad * sin(slope_rad))) +
+          -0.482 * (cos(folded_aspect_rad) * sin(slope_rad))
+
+  return(heatload)
+}
+
+
 
 #' Oudin Daily PET
 #'
