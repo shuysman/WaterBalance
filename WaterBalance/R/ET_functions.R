@@ -295,7 +295,6 @@ get_OudinPET = function(doy, lat, snowpack, tmean, slope, aspect, shade.coeff=1)
   sunset.ang = acos(-tan(lat.rad)*tan(declin))
   R.a = ((24*60)/pi)*0.082*d.r*((sunset.ang*sin(lat.rad)*sin(declin)) + (cos(lat.rad)*cos(declin)*sin(sunset.ang)))
   Oudin = ifelse(snowpack>2,0,ifelse(tmean>-5,(R.a*(tmean+5)*0.408)/100,0))
-  folded_aspect = fold_aspect(aspect)
   Heatload = get_heatload(slope, aspect, lat)
   OudinPET = Oudin * Heatload * sc
   return(OudinPET)
