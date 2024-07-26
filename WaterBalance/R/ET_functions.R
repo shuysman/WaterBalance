@@ -288,16 +288,15 @@ get_heatload <- function(slope, aspect, latitude) {
 #' @export
 #' get_OudinPET()
 
-get_OudinPET = function(doy, lat, snowpack, tmean, slope, aspect, shade.coeff=NULL){
+get_OudinPET = function(doy, lat, snowpack, tmean, slope, aspect, shade.coeff=1){
   d.r = 1 + 0.033*cos((2*pi/365)*doy)
   declin = 0.409*sin((((2*pi)/365)*doy)-1.39)
-  lat.rad = (pi/180)*lat
+  lat.rad = deg2rad(lat)
   sunset.ang = acos(-tan(lat.rad)*tan(declin))
   R.a = ((24*60)/pi)*0.082*d.r*((sunset.ang*sin(lat.rad)*sin(declin)) + (cos(lat.rad)*cos(declin)*sin(sunset.ang)))
   Oudin = ifelse(snowpack>2,0,ifelse(tmean>-5,(R.a*(tmean+5)*0.408)/100,0))
-  Folded_aspect = abs(180-abs((aspect)-225))
-  Heatload = (0.339+0.808*cos(lat*(pi/180))*cos(slope*(pi/180)))-(0.196*sin(lat.rad)*sin(slope*(pi/180)))-(0.482*cos(Folded_aspect*(pi/180))*sin(slope*(pi/180)))
-  sc = ifelse(!is.null(shade.coeff), shade.coeff, 1)
+  folded_aspect = fold_aspect(aspect)
+  Heatload = get_heatload(slope, aspect, lat)
   OudinPET = Oudin * Heatload * sc
   return(OudinPET)
 }
