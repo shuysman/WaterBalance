@@ -10,7 +10,7 @@
 #' Degrees to Radians
 #'
 #' Convert degrees to radians
-#' @param degrees
+#' @param degrees Angle in Degrees
 #' @export
 #' deg2rad()
 
