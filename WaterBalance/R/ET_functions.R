@@ -264,11 +264,10 @@ get_heatload <- function(slope, aspect, latitude) {
   slope_rad <- deg2rad(slope)
   lat_rad <- deg2rad(latitude)
 
-
   heatload <- 0.339 +
-          0.808 * (cos(lat_rad * cos(slope_rad))) +
-          -0.196 * (sin(lat_rad * sin(slope_rad))) +
-          -0.482 * (cos(folded_aspect_rad) * sin(slope_rad))
+    0.808 * (cos(lat_rad) * cos(slope_rad)) +
+    -0.196 * (sin(lat_rad) * sin(slope_rad)) +
+    -0.482 * (cos(folded_aspect_rad) * sin(slope_rad))
 
   return(heatload)
 }
